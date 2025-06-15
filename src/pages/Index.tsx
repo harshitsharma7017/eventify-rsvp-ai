@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Plus, Calendar, Users, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import EventDashboard from '@/components/EventDashboard';
 import CreateEventForm from '@/components/CreateEventForm';
 import GuestManagement from '@/components/GuestManagement';
@@ -13,65 +15,62 @@ const Index = () => {
   const [showCreateForm, setShowCreateForm] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-      {/* Animated Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-cyan-950 relative overflow-hidden">
+      {/* Enhanced Animated Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-r from-blue-400/20 to-purple-600/20 blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-gradient-to-r from-purple-400/20 to-pink-600/20 blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-gradient-to-r from-indigo-400/10 to-cyan-600/10 blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-gradient-to-r from-cyan-400/20 to-blue-600/20 blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-r from-purple-400/20 to-pink-600/20 blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[32rem] h-[32rem] rounded-full bg-gradient-to-r from-indigo-400/10 to-cyan-600/10 blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute top-20 right-1/4 w-64 h-64 rounded-full bg-gradient-to-r from-emerald-400/15 to-teal-600/15 blur-2xl animate-pulse delay-700"></div>
       </div>
 
-      {/* Header */}
-      <div className="bg-white/10 backdrop-blur-xl border-b border-white/20 sticky top-0 z-50 animate-fade-in">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3 animate-slide-in-right">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
-                <Calendar className="w-6 h-6 text-white" />
-              </div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                EventHub
-              </h1>
-            </div>
-            <Button 
-              onClick={() => setShowCreateForm(true)}
-              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Create Event
-            </Button>
-          </div>
-        </div>
-      </div>
+      <Header />
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in delay-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in delay-200">
+        {/* Hero Section */}
+        <div className="text-center mb-12 animate-fade-in">
+          <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+            Manage Events Like a Pro
+          </h2>
+          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+            Create stunning events, track RSVPs, and analyze performance with our AI-powered platform
+          </p>
+          <Button 
+            onClick={() => setShowCreateForm(true)}
+            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 px-8 py-3 text-lg"
+          >
+            <Plus className="w-5 h-5 mr-2" />
+            Create Your First Event
+          </Button>
+        </div>
+
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-          <TabsList className="grid w-full grid-cols-4 bg-white/10 backdrop-blur-xl border border-white/20 shadow-xl">
+          <TabsList className="grid w-full grid-cols-4 bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl p-2">
             <TabsTrigger 
               value="dashboard" 
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500/20 data-[state=active]:to-purple-600/20 data-[state=active]:text-white transition-all duration-300 hover:bg-white/10"
+              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-white/10 rounded-xl"
             >
               <Calendar className="w-4 h-4" />
-              Events
+              Dashboard
             </TabsTrigger>
             <TabsTrigger 
               value="guests" 
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500/20 data-[state=active]:to-purple-600/20 data-[state=active]:text-white transition-all duration-300 hover:bg-white/10"
+              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-white/10 rounded-xl"
             >
               <Users className="w-4 h-4" />
               Guests
             </TabsTrigger>
             <TabsTrigger 
               value="analytics" 
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500/20 data-[state=active]:to-purple-600/20 data-[state=active]:text-white transition-all duration-300 hover:bg-white/10"
+              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-white/10 rounded-xl"
             >
               <TrendingUp className="w-4 h-4" />
               Analytics
             </TabsTrigger>
             <TabsTrigger 
               value="calendar" 
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500/20 data-[state=active]:to-purple-600/20 data-[state=active]:text-white transition-all duration-300 hover:bg-white/10"
+              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-white/10 rounded-xl"
             >
               <Calendar className="w-4 h-4" />
               Calendar
@@ -91,16 +90,20 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="calendar" className="space-y-6 animate-fade-in">
-            <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-12 text-center border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:bg-white/15">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-2xl flex items-center justify-center animate-pulse">
-                <Calendar className="w-10 h-10 text-blue-400" />
+            <div className="bg-white/5 backdrop-blur-xl rounded-3xl p-16 text-center border border-white/10 shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 hover:bg-white/10">
+              <div className="w-24 h-24 mx-auto mb-8 bg-gradient-to-r from-cyan-500/20 to-blue-600/20 rounded-3xl flex items-center justify-center animate-pulse">
+                <Calendar className="w-12 h-12 text-cyan-400" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-3">Calendar Integration</h3>
-              <p className="text-blue-200 text-lg">Google Calendar sync coming soon!</p>
+              <h3 className="text-3xl font-bold text-white mb-4">Calendar Integration</h3>
+              <p className="text-cyan-200 text-xl leading-relaxed max-w-md mx-auto">
+                Seamlessly sync with Google Calendar and other platforms. Coming very soon!
+              </p>
             </div>
           </TabsContent>
         </Tabs>
       </div>
+
+      <Footer />
 
       {/* Create Event Modal */}
       {showCreateForm && (

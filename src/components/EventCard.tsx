@@ -42,24 +42,24 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
   return (
     <>
       <Card 
-        className="bg-white/10 backdrop-blur-xl border border-white/20 hover:shadow-2xl transition-all duration-500 group hover:bg-white/15 hover:border-white/30 transform hover:scale-[1.02] hover:-translate-y-2 animate-fade-in"
+        className="bg-white/5 backdrop-blur-xl border border-white/10 hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 group hover:bg-white/10 hover:border-cyan-500/30 transform hover:scale-[1.02] hover:-translate-y-2 animate-fade-in"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <CardHeader className="pb-3 relative overflow-hidden">
-          {/* Animated gradient overlay */}
-          <div className={`absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+        <CardHeader className="pb-4 relative overflow-hidden">
+          {/* Enhanced gradient overlay */}
+          <div className={`absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
           
           <div className="flex justify-between items-start relative z-10">
             <div className="flex-1">
-              <CardTitle className="text-lg font-bold text-white group-hover:text-blue-300 transition-colors duration-300">
+              <CardTitle className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors duration-300">
                 {event.title}
               </CardTitle>
               <Badge 
                 variant={event.status === 'upcoming' ? 'default' : 'secondary'}
                 className={`mt-3 transition-all duration-300 ${
                   event.status === 'upcoming' 
-                    ? 'bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-300 border-green-500/30' 
+                    ? 'bg-gradient-to-r from-emerald-500/20 to-green-500/20 text-emerald-300 border-emerald-500/30' 
                     : 'bg-gradient-to-r from-gray-500/20 to-slate-500/20 text-gray-300 border-gray-500/30'
                 }`}
               >
@@ -96,34 +96,34 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
           </div>
         </CardHeader>
 
-        <CardContent className="space-y-5">
-          <p className="text-blue-100/80 text-sm line-clamp-2 leading-relaxed">{event.description}</p>
+        <CardContent className="space-y-6">
+          <p className="text-gray-300 text-sm line-clamp-2 leading-relaxed">{event.description}</p>
           
           <div className="grid grid-cols-2 gap-4 text-sm">
-            <div className="flex items-center text-blue-200 hover:text-blue-100 transition-colors duration-300">
-              <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center mr-3">
-                <Calendar className="w-4 h-4 text-blue-400" />
+            <div className="flex items-center text-cyan-300 hover:text-cyan-200 transition-colors duration-300">
+              <div className="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center mr-3 border border-cyan-500/30">
+                <Calendar className="w-4 h-4 text-cyan-400" />
               </div>
               <span className="font-medium">{formatDate(event.date)}</span>
             </div>
-            <div className="flex items-center text-purple-200 hover:text-purple-100 transition-colors duration-300">
-              <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center mr-3">
+            <div className="flex items-center text-purple-300 hover:text-purple-200 transition-colors duration-300">
+              <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center mr-3 border border-purple-500/30">
                 <Clock className="w-4 h-4 text-purple-400" />
               </div>
               <span className="font-medium">{event.time}</span>
             </div>
-            <div className="flex items-center text-pink-200 hover:text-pink-100 transition-colors duration-300 col-span-2">
-              <div className="w-8 h-8 rounded-lg bg-pink-500/20 flex items-center justify-center mr-3">
+            <div className="flex items-center text-pink-300 hover:text-pink-200 transition-colors duration-300 col-span-2">
+              <div className="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center mr-3 border border-pink-500/30">
                 <MapPin className="w-4 h-4 text-pink-400" />
               </div>
               <span className="font-medium">{event.location}</span>
             </div>
           </div>
 
-          <div className="space-y-3 p-4 rounded-xl bg-white/5 border border-white/10">
+          <div className="space-y-4 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
             <div className="flex justify-between items-center text-sm">
-              <span className="text-blue-200 font-medium">RSVPs</span>
-              <span className="font-bold text-white">
+              <span className="text-cyan-300 font-medium">RSVPs</span>
+              <span className="font-bold text-white text-lg">
                 {event.registered} / {event.capacity}
               </span>
             </div>
@@ -131,14 +131,14 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
               value={attendanceRate} 
               className="h-3 bg-white/10 rounded-full overflow-hidden"
             />
-            <p className="text-xs text-blue-300 font-medium">{attendanceRate.toFixed(1)}% capacity</p>
+            <p className="text-xs text-cyan-400 font-medium">{attendanceRate.toFixed(1)}% capacity</p>
           </div>
         </CardContent>
 
         <CardFooter className="pt-0">
           <Button 
             onClick={() => setShowDetails(true)}
-            className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105 rounded-xl"
           >
             <Users className="w-4 h-4 mr-2" />
             Manage RSVPs
