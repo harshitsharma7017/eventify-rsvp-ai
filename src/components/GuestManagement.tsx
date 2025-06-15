@@ -114,7 +114,7 @@ const GuestManagement = () => {
     <div className="space-y-6">
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/20 backdrop-blur-xl">
+        <Card className="bg-slate-900/40 backdrop-blur-xl border border-green-500/30 hover:shadow-green-500/25 transition-all duration-300 hover:scale-105 hover:bg-slate-900/60">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -126,7 +126,7 @@ const GuestManagement = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-yellow-500/10 to-yellow-600/10 border border-yellow-500/20 backdrop-blur-xl">
+        <Card className="bg-slate-900/40 backdrop-blur-xl border border-yellow-500/30 hover:shadow-yellow-500/25 transition-all duration-300 hover:scale-105 hover:bg-slate-900/60">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -138,7 +138,7 @@ const GuestManagement = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-red-500/10 to-red-600/10 border border-red-500/20 backdrop-blur-xl">
+        <Card className="bg-slate-900/40 backdrop-blur-xl border border-red-500/30 hover:shadow-red-500/25 transition-all duration-300 hover:scale-105 hover:bg-slate-900/60">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -150,7 +150,7 @@ const GuestManagement = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20 backdrop-blur-xl">
+        <Card className="bg-slate-900/40 backdrop-blur-xl border border-blue-500/30 hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105 hover:bg-slate-900/60">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -164,7 +164,7 @@ const GuestManagement = () => {
       </div>
 
       {/* Controls */}
-      <Card className="bg-white/5 backdrop-blur-xl border border-white/10">
+      <Card className="bg-slate-900/40 backdrop-blur-xl border border-cyan-500/30 hover:shadow-cyan-500/25 transition-all duration-300">
         <CardHeader>
           <CardTitle className="text-white">Guest Management</CardTitle>
         </CardHeader>
@@ -210,7 +210,7 @@ const GuestManagement = () => {
       </Card>
 
       {/* Guest List */}
-      <Card className="bg-white/5 backdrop-blur-xl border border-white/10">
+      <Card className="bg-slate-900/40 backdrop-blur-xl border border-cyan-500/30 hover:shadow-cyan-500/25 transition-all duration-300">
         <CardContent className="p-0">
           <div className="space-y-0">
             {filteredGuests.map((guest, index) => (
