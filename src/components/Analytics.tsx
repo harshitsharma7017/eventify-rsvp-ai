@@ -1,13 +1,16 @@
-
 import React from 'react';
 import { TrendingUp, Users, Calendar, Target } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { useAnalytics } from '@/hooks/useAnalytics';
+import { useCreateAnalyticsReport } from '@/hooks/useAnalyticsReports';
+import AnalyticsReportsManager from './AnalyticsReportsManager';
+import Button from '@/components/ui/button';
 
 const Analytics = () => {
   const { data: analytics, isLoading, error } = useAnalytics();
+  const createReportMutation = useCreateAnalyticsReport();
 
   if (isLoading) {
     return (
@@ -55,8 +58,31 @@ const Analytics = () => {
   const attendeeGoalProgress = analytics.totalRegistered > 0 ? Math.min((analytics.totalRegistered / monthlyGoalAttendees) * 100, 100) : 0;
   const revenueGoalProgress = analytics.revenue > 0 ? Math.min((analytics.revenue / monthlyGoalRevenue) * 100, 100) : 0;
 
+  const handleSaveReport = () => {
+    const name = prompt('Enter a name for this analytics snapshot (e.g. "June 2025 Report")');
+    if (!name) return;
+    createReportMutation.mutate({
+      name,
+      snapshot: analytics,
+    });
+  };
+
   return (
     <div className="space-y-6">
+      {/* Analytics Reports Manager */}
+      <AnalyticsReportsManager />
+
+      {/* Save Report Button */}
+      <div className="mb-4 flex justify-end">
+        <Button
+          className="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-700 hover:to-purple-700 text-white"
+          onClick={handleSaveReport}
+          disabled={createReportMutation.isPending}
+        >
+          {createReportMutation.isPending ? 'Saving...' : 'Save Analytics Snapshot'}
+        </Button>
+      </div>
+
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <Card className="bg-slate-900/40 backdrop-blur-xl border border-blue-500/30 hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105 hover:bg-slate-900/60">
