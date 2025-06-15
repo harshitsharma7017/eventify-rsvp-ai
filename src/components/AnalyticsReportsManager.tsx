@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Trash, Pencil } from 'lucide-react';
 import {
@@ -83,7 +82,7 @@ const AnalyticsReportsManager = () => {
                 <Button size="icon" variant="ghost" title="Delete"
                   onClick={() => {
                     if (window.confirm('Delete this report?')) {
-                      deleteMutation.mutate(report.id, { onSuccess: refetch });
+                      deleteMutation.mutate(report.id, { onSuccess: () => refetch() });
                     }
                   }}>
                   <Trash className="w-4 h-4 text-red-400" />

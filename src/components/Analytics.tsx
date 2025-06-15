@@ -6,7 +6,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { useCreateAnalyticsReport } from '@/hooks/useAnalyticsReports';
 import AnalyticsReportsManager from './AnalyticsReportsManager';
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 
 const Analytics = () => {
   const { data: analytics, isLoading, error } = useAnalytics();
