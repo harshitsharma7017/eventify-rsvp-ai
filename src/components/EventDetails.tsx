@@ -8,18 +8,8 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-
-interface Event {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-  time: string;
-  location: string;
-  capacity: number;
-  registered: number;
-  status: string;
-}
+import { useGuests } from '@/hooks/useGuests';
+import type { Event } from '@/lib/supabase';
 
 interface EventDetailsProps {
   event: Event;
@@ -29,15 +19,12 @@ interface EventDetailsProps {
 const EventDetails: React.FC<EventDetailsProps> = ({ event, onClose }) => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('overview');
+  const { data: allGuests = [] } = useGuests();
 
+  // Filter guests for this specific event
+  const guests = allGuests.filter(guest => guest.event_id === event.id);
+  
   const attendanceRate = (event.registered / event.capacity) * 100;
-
-  const guests = [
-    { id: 1, name: "Sarah Johnson", email: "sarah@email.com", status: "confirmed" },
-    { id: 2, name: "Mike Chen", email: "mike@email.com", status: "pending" },
-    { id: 3, name: "Emily Davis", email: "emily@email.com", status: "confirmed" },
-    { id: 4, name: "John Smith", email: "john@email.com", status: "declined" }
-  ];
 
   const getInitials = (name: string) => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
@@ -64,6 +51,12 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onClose }) => {
       title: "Export Complete",
       description: "Guest list has been exported to CSV.",
     });
+  };
+
+  const statusCounts = {
+    confirmed: guests.filter(g => g.status === 'confirmed').length,
+    pending: guests.filter(g => g.status === 'pending').length,
+    declined: guests.filter(g => g.status === 'declined').length
   };
 
   return (
@@ -97,7 +90,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onClose }) => {
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
             <TabsList className="grid w-full grid-cols-3 bg-gray-100">
               <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="guests">Guests ({event.registered})</TabsTrigger>
+              <TabsTrigger value="guests">Guests ({guests.length})</TabsTrigger>
               <TabsTrigger value="analytics">Analytics</TabsTrigger>
             </TabsList>
 
@@ -117,7 +110,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onClose }) => {
                     </div>
                   </div>
                   <div className="bg-gray-50 rounded-lg p-4">
-                    <p className="text-gray-700">{event.description}</p>
+                    <p className="text-gray-700">{event.description || 'No description provided.'}</p>
                   </div>
                 </div>
 
@@ -132,21 +125,15 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onClose }) => {
                     <Progress value={attendanceRate} className="h-3" />
                     <div className="grid grid-cols-3 gap-4 text-center">
                       <div className="bg-green-50 rounded-lg p-3">
-                        <p className="text-2xl font-bold text-green-600">
-                          {guests.filter(g => g.status === 'confirmed').length}
-                        </p>
+                        <p className="text-2xl font-bold text-green-600">{statusCounts.confirmed}</p>
                         <p className="text-xs text-green-600">Confirmed</p>
                       </div>
                       <div className="bg-yellow-50 rounded-lg p-3">
-                        <p className="text-2xl font-bold text-yellow-600">
-                          {guests.filter(g => g.status === 'pending').length}
-                        </p>
+                        <p className="text-2xl font-bold text-yellow-600">{statusCounts.pending}</p>
                         <p className="text-xs text-yellow-600">Pending</p>
                       </div>
                       <div className="bg-red-50 rounded-lg p-3">
-                        <p className="text-2xl font-bold text-red-600">
-                          {guests.filter(g => g.status === 'declined').length}
-                        </p>
+                        <p className="text-2xl font-bold text-red-600">{statusCounts.declined}</p>
                         <p className="text-xs text-red-600">Declined</p>
                       </div>
                     </div>
@@ -205,6 +192,13 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onClose }) => {
                     </Badge>
                   </div>
                 ))}
+                
+                {guests.length === 0 && (
+                  <div className="text-center py-8">
+                    <Users className="w-12 h-12 mx-auto text-gray-400 mb-2" />
+                    <p className="text-gray-600">No guests registered for this event yet.</p>
+                  </div>
+                )}
               </div>
             </TabsContent>
 
@@ -219,7 +213,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onClose }) => {
                 <Card className="bg-green-50 border-green-200">
                   <CardContent className="p-4 text-center">
                     <p className="text-2xl font-bold text-green-900">
-                      {(guests.filter(g => g.status === 'confirmed').length / guests.length * 100).toFixed(1)}%
+                      {guests.length > 0 ? (statusCounts.confirmed / guests.length * 100).toFixed(1) : 0}%
                     </p>
                     <p className="text-sm text-green-600">Confirmation Rate</p>
                   </CardContent>
@@ -234,25 +228,23 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onClose }) => {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Registration Timeline</CardTitle>
+                  <CardTitle>Registration Statistics</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex justify-between text-sm">
-                      <span>Week 1</span>
-                      <span>45 registrations</span>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Total Capacity</span>
+                      <span className="font-semibold">{event.capacity}</span>
                     </div>
-                    <Progress value={45} className="h-2" />
-                    <div className="flex justify-between text-sm">
-                      <span>Week 2</span>
-                      <span>78 registrations</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Current Registrations</span>
+                      <span className="font-semibold">{event.registered}</span>
                     </div>
-                    <Progress value={78} className="h-2" />
-                    <div className="flex justify-between text-sm">
-                      <span>Week 3</span>
-                      <span>111 registrations</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Available Spots</span>
+                      <span className="font-semibold">{event.capacity - event.registered}</span>
                     </div>
-                    <Progress value={111} className="h-2" />
+                    <Progress value={attendanceRate} className="h-2 mt-2" />
                   </div>
                 </CardContent>
               </Card>

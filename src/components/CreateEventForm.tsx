@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { useCreateEvent } from '@/hooks/useEvents';
 
 interface CreateEventFormProps {
   onClose: () => void;
@@ -14,6 +15,8 @@ interface CreateEventFormProps {
 
 const CreateEventForm: React.FC<CreateEventFormProps> = ({ onClose }) => {
   const { toast } = useToast();
+  const createEvent = useCreateEvent();
+  
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -77,12 +80,22 @@ The EventHub Team`;
       return;
     }
 
-    toast({
-      title: "Event Created Successfully!",
-      description: `${formData.title} has been added to your events.`,
-    });
+    // Create event object
+    const eventData = {
+      title: formData.title,
+      description: formData.description || null,
+      date: formData.date,
+      time: formData.time,
+      location: formData.location,
+      capacity: parseInt(formData.capacity) || 100,
+      status: 'upcoming' as const
+    };
 
-    onClose();
+    createEvent.mutate(eventData, {
+      onSuccess: () => {
+        onClose();
+      }
+    });
   };
 
   return (
@@ -231,9 +244,10 @@ The EventHub Team`;
               </Button>
               <Button 
                 type="submit" 
+                disabled={createEvent.isPending}
                 className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
               >
-                Create Event
+                {createEvent.isPending ? 'Creating...' : 'Create Event'}
               </Button>
             </div>
           </form>

@@ -1,45 +1,36 @@
 
-import React, { useState } from 'react';
-import { Calendar, MapPin, Users, Clock, TrendingUp, Award, Zap } from 'lucide-react';
+import React from 'react';
+import { Calendar, Users, Award, Zap } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import EventCard from './EventCard';
+import { useEvents } from '@/hooks/useEvents';
 
 const EventDashboard = () => {
-  const [events, setEvents] = useState([
-    {
-      id: 1,
-      title: "Annual Tech Conference 2024",
-      description: "Join us for the biggest tech event of the year featuring industry leaders and breakthrough innovations.",
-      date: "2024-03-15",
-      time: "09:00",
-      location: "San Francisco Convention Center",
-      capacity: 500,
-      registered: 234,
-      status: "upcoming"
-    },
-    {
-      id: 2,
-      title: "Product Launch Webinar",
-      description: "Exclusive preview of our latest product features and roadmap discussion.",
-      date: "2024-02-28",
-      time: "14:00",
-      location: "Virtual Event",
-      capacity: 200,
-      registered: 156,
-      status: "upcoming"
-    },
-    {
-      id: 3,
-      title: "Team Building Workshop",
-      description: "Interactive workshop focused on collaboration and team dynamics.",
-      date: "2024-02-10",
-      time: "10:00",
-      location: "Company Headquarters",
-      capacity: 50,
-      registered: 45,
-      status: "completed"
-    }
-  ]);
+  const { data: events = [], isLoading, error } = useEvents();
+
+  if (isLoading) {
+    return (
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {[...Array(4)].map((_, i) => (
+            <Card key={i} className="bg-slate-900/40 backdrop-blur-xl border border-cyan-500/30 animate-pulse">
+              <CardContent className="p-6">
+                <div className="h-20 bg-white/10 rounded"></div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-red-400">Failed to load events. Please try again.</p>
+      </div>
+    );
+  }
 
   const upcomingEvents = events.filter(event => event.status === 'upcoming');
   const completedEvents = events.filter(event => event.status === 'completed');
@@ -98,7 +89,9 @@ const EventDashboard = () => {
               <div>
                 <p className="text-orange-400 text-sm font-medium">Avg. Attendance</p>
                 <p className="text-3xl font-bold text-white">
-                  {Math.round(events.reduce((sum, event) => sum + (event.registered / event.capacity) * 100, 0) / events.length)}%
+                  {events.length > 0 
+                    ? Math.round(events.reduce((sum, event) => sum + (event.registered / event.capacity) * 100, 0) / events.length)
+                    : 0}%
                 </p>
               </div>
               <div className="p-3 bg-orange-500/20 rounded-2xl border border-orange-400/30">

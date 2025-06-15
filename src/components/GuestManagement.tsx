@@ -8,6 +8,8 @@ import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import { useGuests, useCreateGuest } from '@/hooks/useGuests';
+import { useEvents } from '@/hooks/useEvents';
 
 const GuestManagement = () => {
   const { toast } = useToast();
@@ -15,49 +17,14 @@ const GuestManagement = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [newGuestEmail, setNewGuestEmail] = useState('');
 
-  const [guests, setGuests] = useState([
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      email: "sarah.johnson@email.com",
-      status: "confirmed",
-      eventId: 1,
-      eventTitle: "Annual Tech Conference 2024",
-      rsvpDate: "2024-01-15"
-    },
-    {
-      id: 2,
-      name: "Mike Chen",
-      email: "mike.chen@email.com",
-      status: "pending",
-      eventId: 1,
-      eventTitle: "Annual Tech Conference 2024",
-      rsvpDate: null
-    },
-    {
-      id: 3,
-      name: "Emily Davis",
-      email: "emily.davis@email.com",
-      status: "declined",
-      eventId: 2,
-      eventTitle: "Product Launch Webinar",
-      rsvpDate: "2024-01-20"
-    },
-    {
-      id: 4,
-      name: "John Smith",
-      email: "john.smith@email.com",
-      status: "confirmed",
-      eventId: 2,
-      eventTitle: "Product Launch Webinar",
-      rsvpDate: "2024-01-18"
-    }
-  ]);
+  const { data: guests = [], isLoading: guestsLoading } = useGuests();
+  const { data: events = [] } = useEvents();
+  const createGuest = useCreateGuest();
 
   const filteredGuests = guests.filter(guest => {
     const matchesSearch = guest.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          guest.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         guest.eventTitle.toLowerCase().includes(searchTerm.toLowerCase());
+                         guest.event_title.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || guest.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
@@ -85,22 +52,30 @@ const GuestManagement = () => {
   const addGuest = () => {
     if (!newGuestEmail) return;
     
-    const newGuest = {
-      id: guests.length + 1,
-      name: newGuestEmail.split('@')[0].replace('.', ' '),
+    // Get the first upcoming event as default
+    const defaultEvent = events.find(e => e.status === 'upcoming') || events[0];
+    if (!defaultEvent) {
+      toast({
+        title: "No Events Available",
+        description: "Please create an event first before adding guests.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const guestData = {
+      name: newGuestEmail.split('@')[0].replace(/[._]/g, ' '),
       email: newGuestEmail,
-      status: 'pending',
-      eventId: 1,
-      eventTitle: "Annual Tech Conference 2024",
-      rsvpDate: null
+      status: 'pending' as const,
+      event_id: defaultEvent.id,
+      event_title: defaultEvent.title,
+      rsvp_date: null
     };
 
-    setGuests([...guests, newGuest]);
-    setNewGuestEmail('');
-    
-    toast({
-      title: "Guest Added",
-      description: `Invitation sent to ${newGuestEmail}`,
+    createGuest.mutate(guestData, {
+      onSuccess: () => {
+        setNewGuestEmail('');
+      }
     });
   };
 
@@ -109,6 +84,22 @@ const GuestManagement = () => {
     pending: guests.filter(g => g.status === 'pending').length,
     declined: guests.filter(g => g.status === 'declined').length
   };
+
+  if (guestsLoading) {
+    return (
+      <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          {[...Array(4)].map((_, i) => (
+            <Card key={i} className="bg-slate-900/40 backdrop-blur-xl border border-green-500/30 animate-pulse">
+              <CardContent className="p-4">
+                <div className="h-16 bg-white/10 rounded"></div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -177,9 +168,13 @@ const GuestManagement = () => {
               onChange={(e) => setNewGuestEmail(e.target.value)}
               className="flex-1 bg-white/10 border-white/20 text-white placeholder-gray-400"
             />
-            <Button onClick={addGuest} className="bg-gradient-to-r from-blue-600 to-purple-600">
+            <Button 
+              onClick={addGuest} 
+              disabled={createGuest.isPending || !newGuestEmail}
+              className="bg-gradient-to-r from-blue-600 to-purple-600"
+            >
               <Plus className="w-4 h-4 mr-2" />
-              Add Guest
+              {createGuest.isPending ? 'Adding...' : 'Add Guest'}
             </Button>
           </div>
 
@@ -229,7 +224,7 @@ const GuestManagement = () => {
                   <div>
                     <h3 className="font-medium text-white">{guest.name}</h3>
                     <p className="text-sm text-gray-300">{guest.email}</p>
-                    <p className="text-xs text-gray-400">{guest.eventTitle}</p>
+                    <p className="text-xs text-gray-400">{guest.event_title}</p>
                   </div>
                 </div>
 
@@ -250,9 +245,9 @@ const GuestManagement = () => {
                     </Button>
                   )}
                   
-                  {guest.rsvpDate && (
+                  {guest.rsvp_date && (
                     <span className="text-xs text-gray-400">
-                      RSVP: {new Date(guest.rsvpDate).toLocaleDateString()}
+                      RSVP: {new Date(guest.rsvp_date).toLocaleDateString()}
                     </span>
                   )}
                 </div>

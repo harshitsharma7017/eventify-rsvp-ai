@@ -7,18 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Progress } from '@/components/ui/progress';
 import EventDetails from './EventDetails';
-
-interface Event {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-  time: string;
-  location: string;
-  capacity: number;
-  registered: number;
-  status: string;
-}
+import { useDeleteEvent } from '@/hooks/useEvents';
+import type { Event } from '@/lib/supabase';
 
 interface EventCardProps {
   event: Event;
@@ -27,6 +17,8 @@ interface EventCardProps {
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const deleteEvent = useDeleteEvent();
+  
   const attendanceRate = (event.registered / event.capacity) * 100;
 
   const formatDate = (dateString: string) => {
@@ -37,6 +29,12 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
       month: 'short', 
       day: 'numeric' 
     });
+  };
+
+  const handleDelete = () => {
+    if (window.confirm('Are you sure you want to delete this event?')) {
+      deleteEvent.mutate(event.id);
+    }
   };
 
   return (
@@ -87,7 +85,11 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
                   <Edit className="w-4 h-4 mr-2" />
                   Edit Event
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-red-300 hover:bg-red-500/20">
+                <DropdownMenuItem 
+                  onClick={handleDelete}
+                  className="text-red-300 hover:bg-red-500/20"
+                  disabled={deleteEvent.isPending}
+                >
                   <Trash className="w-4 h-4 mr-2" />
                   Delete Event
                 </DropdownMenuItem>
