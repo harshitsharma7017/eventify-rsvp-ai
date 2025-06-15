@@ -48,21 +48,21 @@ const EventDashboard = () => {
     <div className="space-y-8">
       {/* Enhanced Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-gradient-to-br from-cyan-500/10 to-blue-600/10 border border-cyan-500/20 backdrop-blur-xl hover:shadow-cyan-500/25 transition-all duration-300 hover:scale-105">
+        <Card className="bg-slate-900/40 backdrop-blur-xl border border-cyan-500/30 hover:shadow-cyan-500/25 transition-all duration-300 hover:scale-105 hover:bg-slate-900/60">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-cyan-400 text-sm font-medium">Total Events</p>
                 <p className="text-3xl font-bold text-white">{events.length}</p>
               </div>
-              <div className="p-3 bg-cyan-500/20 rounded-2xl">
+              <div className="p-3 bg-cyan-500/20 rounded-2xl border border-cyan-400/30">
                 <Calendar className="w-8 h-8 text-cyan-400" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-emerald-500/10 to-green-600/10 border border-emerald-500/20 backdrop-blur-xl hover:shadow-emerald-500/25 transition-all duration-300 hover:scale-105">
+        <Card className="bg-slate-900/40 backdrop-blur-xl border border-emerald-500/30 hover:shadow-emerald-500/25 transition-all duration-300 hover:scale-105 hover:bg-slate-900/60">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -71,28 +71,28 @@ const EventDashboard = () => {
                   {events.reduce((sum, event) => sum + event.registered, 0)}
                 </p>
               </div>
-              <div className="p-3 bg-emerald-500/20 rounded-2xl">
+              <div className="p-3 bg-emerald-500/20 rounded-2xl border border-emerald-400/30">
                 <Users className="w-8 h-8 text-emerald-400" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-purple-500/10 to-violet-600/10 border border-purple-500/20 backdrop-blur-xl hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105">
+        <Card className="bg-slate-900/40 backdrop-blur-xl border border-purple-500/30 hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105 hover:bg-slate-900/60">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-purple-400 text-sm font-medium">Upcoming</p>
                 <p className="text-3xl font-bold text-white">{upcomingEvents.length}</p>
               </div>
-              <div className="p-3 bg-purple-500/20 rounded-2xl">
+              <div className="p-3 bg-purple-500/20 rounded-2xl border border-purple-400/30">
                 <Zap className="w-8 h-8 text-purple-400" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-orange-500/10 to-red-600/10 border border-orange-500/20 backdrop-blur-xl hover:shadow-orange-500/25 transition-all duration-300 hover:scale-105">
+        <Card className="bg-slate-900/40 backdrop-blur-xl border border-orange-500/30 hover:shadow-orange-500/25 transition-all duration-300 hover:scale-105 hover:bg-slate-900/60">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -101,7 +101,7 @@ const EventDashboard = () => {
                   {Math.round(events.reduce((sum, event) => sum + (event.registered / event.capacity) * 100, 0) / events.length)}%
                 </p>
               </div>
-              <div className="p-3 bg-orange-500/20 rounded-2xl">
+              <div className="p-3 bg-orange-500/20 rounded-2xl border border-orange-400/30">
                 <Award className="w-8 h-8 text-orange-400" />
               </div>
             </div>
@@ -121,9 +121,9 @@ const EventDashboard = () => {
             ))}
           </div>
         ) : (
-          <Card className="bg-white/5 backdrop-blur-xl border border-white/10 hover:shadow-2xl transition-all duration-500">
+          <Card className="bg-slate-900/40 backdrop-blur-xl border border-cyan-500/20 hover:shadow-2xl transition-all duration-500">
             <CardContent className="p-16 text-center">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-cyan-500/20 to-blue-600/20 rounded-3xl flex items-center justify-center animate-pulse">
+              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-cyan-500/20 to-blue-600/20 rounded-3xl flex items-center justify-center animate-pulse border border-cyan-400/30">
                 <Calendar className="w-10 h-10 text-cyan-400" />
               </div>
               <h3 className="text-2xl font-semibold text-white mb-3">No Upcoming Events</h3>

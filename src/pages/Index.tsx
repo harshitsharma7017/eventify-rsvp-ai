@@ -46,31 +46,31 @@ const Index = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-          <TabsList className="grid w-full grid-cols-4 bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl p-2">
+          <TabsList className="grid w-full grid-cols-4 bg-slate-900/80 backdrop-blur-xl border border-cyan-500/20 shadow-2xl rounded-2xl p-2">
             <TabsTrigger 
               value="dashboard" 
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-white/10 rounded-xl text-gray-300"
+              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/30 data-[state=active]:to-blue-600/30 data-[state=active]:text-cyan-100 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-400/30 transition-all duration-300 hover:bg-cyan-500/10 rounded-xl text-gray-300 hover:text-cyan-200"
             >
               <Calendar className="w-4 h-4" />
               Dashboard
             </TabsTrigger>
             <TabsTrigger 
               value="guests" 
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-white/10 rounded-xl text-gray-300"
+              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/30 data-[state=active]:to-blue-600/30 data-[state=active]:text-cyan-100 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-400/30 transition-all duration-300 hover:bg-cyan-500/10 rounded-xl text-gray-300 hover:text-cyan-200"
             >
               <Users className="w-4 h-4" />
               Guests
             </TabsTrigger>
             <TabsTrigger 
               value="analytics" 
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-white/10 rounded-xl text-gray-300"
+              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/30 data-[state=active]:to-blue-600/30 data-[state=active]:text-cyan-100 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-400/30 transition-all duration-300 hover:bg-cyan-500/10 rounded-xl text-gray-300 hover:text-cyan-200"
             >
               <TrendingUp className="w-4 h-4" />
               Analytics
             </TabsTrigger>
             <TabsTrigger 
               value="calendar" 
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-white/10 rounded-xl text-gray-300"
+              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/30 data-[state=active]:to-blue-600/30 data-[state=active]:text-cyan-100 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-400/30 transition-all duration-300 hover:bg-cyan-500/10 rounded-xl text-gray-300 hover:text-cyan-200"
             >
               <Calendar className="w-4 h-4" />
               Calendar
@@ -90,8 +90,8 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="calendar" className="space-y-6 animate-fade-in">
-            <div className="bg-white/5 backdrop-blur-xl rounded-3xl p-16 text-center border border-white/10 shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 hover:bg-white/10">
-              <div className="w-24 h-24 mx-auto mb-8 bg-gradient-to-r from-cyan-500/20 to-blue-600/20 rounded-3xl flex items-center justify-center animate-pulse">
+            <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-16 text-center border border-cyan-500/20 shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 hover:bg-slate-900/60">
+              <div className="w-24 h-24 mx-auto mb-8 bg-gradient-to-r from-cyan-500/20 to-blue-600/20 rounded-3xl flex items-center justify-center animate-pulse border border-cyan-400/30">
                 <Calendar className="w-12 h-12 text-cyan-400" />
               </div>
               <h3 className="text-3xl font-bold text-white mb-4">Calendar Integration</h3>
