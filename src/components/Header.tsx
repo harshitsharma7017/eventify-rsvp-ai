@@ -2,6 +2,7 @@
 import React from 'react';
 import { Calendar, Bell, User, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -9,14 +10,14 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center shadow-lg">
               <Calendar className="w-6 h-6 text-white" />
             </div>
             <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
               EventHub Pro
             </h1>
-          </div>
+          </Link>
 
           {/* Search Bar */}
           <div className="hidden md:flex flex-1 max-w-md mx-8">
@@ -30,8 +31,13 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Actions */}
+          {/* Navigation & Actions */}
           <div className="flex items-center space-x-4">
+            <Link to="/contact">
+              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+                Contact
+              </Button>
+            </Link>
             <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
               <Bell className="w-5 h-5" />
             </Button>

@@ -114,59 +114,59 @@ const GuestManagement = () => {
     <div className="space-y-6">
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
+        <Card className="bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/20 backdrop-blur-xl">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-green-600 text-sm font-medium">Confirmed</p>
-                <p className="text-2xl font-bold text-green-900">{statusCounts.confirmed}</p>
+                <p className="text-green-400 text-sm font-medium">Confirmed</p>
+                <p className="text-2xl font-bold text-white">{statusCounts.confirmed}</p>
               </div>
-              <UserCheck className="w-6 h-6 text-green-600" />
+              <UserCheck className="w-6 h-6 text-green-400" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-yellow-50 to-yellow-100 border-yellow-200">
+        <Card className="bg-gradient-to-br from-yellow-500/10 to-yellow-600/10 border border-yellow-500/20 backdrop-blur-xl">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-yellow-600 text-sm font-medium">Pending</p>
-                <p className="text-2xl font-bold text-yellow-900">{statusCounts.pending}</p>
+                <p className="text-yellow-400 text-sm font-medium">Pending</p>
+                <p className="text-2xl font-bold text-white">{statusCounts.pending}</p>
               </div>
-              <Mail className="w-6 h-6 text-yellow-600" />
+              <Mail className="w-6 h-6 text-yellow-400" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
+        <Card className="bg-gradient-to-br from-red-500/10 to-red-600/10 border border-red-500/20 backdrop-blur-xl">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-red-600 text-sm font-medium">Declined</p>
-                <p className="text-2xl font-bold text-red-900">{statusCounts.declined}</p>
+                <p className="text-red-400 text-sm font-medium">Declined</p>
+                <p className="text-2xl font-bold text-white">{statusCounts.declined}</p>
               </div>
-              <UserX className="w-6 h-6 text-red-600" />
+              <UserX className="w-6 h-6 text-red-400" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+        <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20 backdrop-blur-xl">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-blue-600 text-sm font-medium">Total Guests</p>
-                <p className="text-2xl font-bold text-blue-900">{guests.length}</p>
+                <p className="text-blue-400 text-sm font-medium">Total Guests</p>
+                <p className="text-2xl font-bold text-white">{guests.length}</p>
               </div>
-              <Filter className="w-6 h-6 text-blue-600" />
+              <Filter className="w-6 h-6 text-blue-400" />
             </div>
           </CardContent>
         </Card>
       </div>
 
       {/* Controls */}
-      <Card className="bg-white/60 backdrop-blur-sm">
+      <Card className="bg-white/5 backdrop-blur-xl border border-white/10">
         <CardHeader>
-          <CardTitle>Guest Management</CardTitle>
+          <CardTitle className="text-white">Guest Management</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Add Guest */}
@@ -175,7 +175,7 @@ const GuestManagement = () => {
               placeholder="Enter guest email address"
               value={newGuestEmail}
               onChange={(e) => setNewGuestEmail(e.target.value)}
-              className="flex-1"
+              className="flex-1 bg-white/10 border-white/20 text-white placeholder-gray-400"
             />
             <Button onClick={addGuest} className="bg-gradient-to-r from-blue-600 to-purple-600">
               <Plus className="w-4 h-4 mr-2" />
@@ -191,14 +191,14 @@ const GuestManagement = () => {
                 placeholder="Search guests..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-10 bg-white/10 border-white/20 text-white placeholder-gray-400"
               />
             </div>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-48">
+              <SelectTrigger className="w-48 bg-white/10 border-white/20 text-white">
                 <SelectValue placeholder="Filter by status" />
               </SelectTrigger>
-              <SelectContent className="bg-white/95 backdrop-blur-sm">
+              <SelectContent className="bg-slate-900/95 backdrop-blur-xl border-white/20 text-white">
                 <SelectItem value="all">All Statuses</SelectItem>
                 <SelectItem value="confirmed">Confirmed</SelectItem>
                 <SelectItem value="pending">Pending</SelectItem>
@@ -210,14 +210,14 @@ const GuestManagement = () => {
       </Card>
 
       {/* Guest List */}
-      <Card className="bg-white/60 backdrop-blur-sm">
+      <Card className="bg-white/5 backdrop-blur-xl border border-white/10">
         <CardContent className="p-0">
           <div className="space-y-0">
             {filteredGuests.map((guest, index) => (
               <div 
                 key={guest.id} 
-                className={`p-4 flex items-center justify-between hover:bg-gray-50/50 transition-colors ${
-                  index !== filteredGuests.length - 1 ? 'border-b' : ''
+                className={`p-4 flex items-center justify-between hover:bg-white/10 transition-colors ${
+                  index !== filteredGuests.length - 1 ? 'border-b border-white/10' : ''
                 }`}
               >
                 <div className="flex items-center space-x-3">
@@ -227,9 +227,9 @@ const GuestManagement = () => {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <h3 className="font-medium text-gray-900">{guest.name}</h3>
-                    <p className="text-sm text-gray-600">{guest.email}</p>
-                    <p className="text-xs text-gray-500">{guest.eventTitle}</p>
+                    <h3 className="font-medium text-white">{guest.name}</h3>
+                    <p className="text-sm text-gray-300">{guest.email}</p>
+                    <p className="text-xs text-gray-400">{guest.eventTitle}</p>
                   </div>
                 </div>
 
@@ -243,7 +243,7 @@ const GuestManagement = () => {
                       variant="outline"
                       size="sm"
                       onClick={() => sendReminder(guest)}
-                      className="text-blue-600 hover:text-blue-700"
+                      className="text-blue-400 hover:text-blue-300 border-blue-500/30 hover:bg-blue-500/20"
                     >
                       <Mail className="w-4 h-4 mr-2" />
                       Remind
@@ -251,7 +251,7 @@ const GuestManagement = () => {
                   )}
                   
                   {guest.rsvpDate && (
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-gray-400">
                       RSVP: {new Date(guest.rsvpDate).toLocaleDateString()}
                     </span>
                   )}
@@ -263,8 +263,8 @@ const GuestManagement = () => {
           {filteredGuests.length === 0 && (
             <div className="p-12 text-center">
               <Mail className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-              <h3 className="text-xl font-semibold text-gray-600 mb-2">No Guests Found</h3>
-              <p className="text-gray-500">Try adjusting your search or add some guests!</p>
+              <h3 className="text-xl font-semibold text-gray-300 mb-2">No Guests Found</h3>
+              <p className="text-gray-400">Try adjusting your search or add some guests!</p>
             </div>
           )}
         </CardContent>
