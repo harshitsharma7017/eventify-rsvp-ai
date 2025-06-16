@@ -46,31 +46,31 @@ const Index = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-          <TabsList className="grid w-full grid-cols-4 bg-slate-900/80 backdrop-blur-xl border border-cyan-500/20 shadow-2xl rounded-2xl p-2">
+          <TabsList className="grid w-full h-14 grid-cols-4 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 shadow-2xl rounded-2xl p-1 gap-1">
             <TabsTrigger 
               value="dashboard" 
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/30 data-[state=active]:to-blue-600/30 data-[state=active]:text-cyan-100 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-400/30 transition-all duration-300 hover:bg-cyan-500/10 rounded-xl text-gray-300 hover:text-cyan-200"
+              className="flex items-center justify-center gap-2 py-3 px-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-green-900 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-500/30 transition-all duration-300 hover:bg-slate-800/40 rounded-xl text-slate-300 hover:text-slate-200 font-medium"
             >
               <Calendar className="w-4 h-4" />
               Dashboard
             </TabsTrigger>
             <TabsTrigger 
               value="guests" 
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/30 data-[state=active]:to-blue-600/30 data-[state=active]:text-cyan-100 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-400/30 transition-all duration-300 hover:bg-cyan-500/10 rounded-xl text-gray-300 hover:text-cyan-200"
+              className="flex items-center justify-center gap-2 py-3 px-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-green-900 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-500/30 transition-all duration-300 hover:bg-slate-800/40 rounded-xl text-slate-300 hover:text-slate-200 font-medium"
             >
               <Users className="w-4 h-4" />
               Guests
             </TabsTrigger>
             <TabsTrigger 
               value="analytics" 
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/30 data-[state=active]:to-blue-600/30 data-[state=active]:text-cyan-100 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-400/30 transition-all duration-300 hover:bg-cyan-500/10 rounded-xl text-gray-300 hover:text-cyan-200"
+              className="flex items-center justify-center gap-2 py-3 px-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-green-900 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-500/30 transition-all duration-300 hover:bg-slate-800/40 rounded-xl text-slate-300 hover:text-slate-200 font-medium"
             >
               <TrendingUp className="w-4 h-4" />
               Analytics
             </TabsTrigger>
             <TabsTrigger 
               value="calendar" 
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/30 data-[state=active]:to-blue-600/30 data-[state=active]:text-cyan-100 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-400/30 transition-all duration-300 hover:bg-cyan-500/10 rounded-xl text-gray-300 hover:text-cyan-200"
+              className="flex items-center justify-center gap-2 py-3 px-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-green-900 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-500/30 transition-all duration-300 hover:bg-slate-800/40 rounded-xl text-slate-300 hover:text-slate-200 font-medium"
             >
               <Calendar className="w-4 h-4" />
               Calendar
