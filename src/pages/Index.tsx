@@ -9,6 +9,9 @@ import EventDashboard from '@/components/EventDashboard';
 import CreateEventForm from '@/components/CreateEventForm';
 import GuestManagement from '@/components/GuestManagement';
 import Analytics from '@/components/Analytics';
+import AIChatbot from '@/components/AIChatbot';
+import SmartScheduling from '@/components/SmartScheduling';
+import EnhancedRSVP from '@/components/EnhancedRSVP';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -90,15 +93,7 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="calendar" className="space-y-6 animate-fade-in">
-            <div className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-16 text-center border border-cyan-500/20 shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 hover:bg-slate-900/60">
-              <div className="w-24 h-24 mx-auto mb-8 bg-gradient-to-r from-cyan-500/20 to-blue-600/20 rounded-3xl flex items-center justify-center animate-pulse border border-cyan-400/30">
-                <Calendar className="w-12 h-12 text-cyan-400" />
-              </div>
-              <h3 className="text-3xl font-bold text-white mb-4">Calendar Integration</h3>
-              <p className="text-cyan-200 text-xl leading-relaxed max-w-md mx-auto">
-                Seamlessly sync with Google Calendar and other platforms. Coming very soon!
-              </p>
-            </div>
+            <SmartScheduling />
           </TabsContent>
         </Tabs>
       </div>
@@ -109,6 +104,13 @@ const Index = () => {
       {showCreateForm && (
         <CreateEventForm onClose={() => setShowCreateForm(false)} />
       )}
+      
+      <AIChatbot 
+        eventId="demo-event"
+        eventTitle="Sample Event"
+        guestEmail="demo@example.com"
+        guestName="Demo User"
+      />
     </div>
   );
 };

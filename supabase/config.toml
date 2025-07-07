@@ -1,0 +1,63 @@
+project_id = "2dc4cc82-7b1f-46bb-895d-45e8fed49820"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+enabled = true
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[realtime]
+enabled = true
+ip_version = "ipv4"
+port = 54323
+max_header_length = 4096
+
+[studio]
+enabled = true
+port = 54324
+
+[inbucket]
+enabled = true
+port = 54325
+smtp_port = 54326
+pop3_port = 54327
+
+[storage]
+enabled = true
+port = 54328
+file_size_limit = "50MiB"
+image_transformation_enabled = true
+
+[auth]
+enabled = true
+port = 54329
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["https://localhost:3000"]
+jwt_expiry = 3600
+enable_signup = true
+
+[functions.ai-chatbot]
+verify_jwt = false
+
+[functions.smart-scheduling]
+verify_jwt = false
+
+[functions.manage-waitlist]
+verify_jwt = false
+
+[edge-runtime]
+policy = "per_worker"
+inspector_port = 8083
+
+[analytics]
+enabled = false
+
+[functions]
+verify_jwt = true
