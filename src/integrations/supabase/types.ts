@@ -35,6 +35,95 @@ export type Database = {
         }
         Relationships: []
       }
+      badges: {
+        Row: {
+          badge_type: string | null
+          created_at: string | null
+          criteria: Json | null
+          description: string | null
+          icon_name: string | null
+          id: string
+          name: string
+          points_required: number | null
+          rarity: string | null
+        }
+        Insert: {
+          badge_type?: string | null
+          created_at?: string | null
+          criteria?: Json | null
+          description?: string | null
+          icon_name?: string | null
+          id?: string
+          name: string
+          points_required?: number | null
+          rarity?: string | null
+        }
+        Update: {
+          badge_type?: string | null
+          created_at?: string | null
+          criteria?: Json | null
+          description?: string | null
+          icon_name?: string | null
+          id?: string
+          name?: string
+          points_required?: number | null
+          rarity?: string | null
+        }
+        Relationships: []
+      }
+      challenges: {
+        Row: {
+          badge_reward: string | null
+          challenge_type: string | null
+          created_at: string | null
+          current_value: number | null
+          description: string | null
+          end_date: string | null
+          id: string
+          is_active: boolean | null
+          points_reward: number | null
+          start_date: string | null
+          target_value: number | null
+          title: string
+        }
+        Insert: {
+          badge_reward?: string | null
+          challenge_type?: string | null
+          created_at?: string | null
+          current_value?: number | null
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          points_reward?: number | null
+          start_date?: string | null
+          target_value?: number | null
+          title: string
+        }
+        Update: {
+          badge_reward?: string | null
+          challenge_type?: string | null
+          created_at?: string | null
+          current_value?: number | null
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          points_reward?: number | null
+          start_date?: string | null
+          target_value?: number | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "challenges_badge_reward_fkey"
+            columns: ["badge_reward"]
+            isOneToOne: false
+            referencedRelation: "badges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       chat_conversations: {
         Row: {
           created_at: string | null
@@ -212,6 +301,77 @@ export type Database = {
           },
         ]
       }
+      leaderboard_entries: {
+        Row: {
+          created_at: string | null
+          id: string
+          leaderboard_type: string | null
+          period: string | null
+          rank: number | null
+          score: number | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          leaderboard_type?: string | null
+          period?: string | null
+          rank?: number | null
+          score?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          leaderboard_type?: string | null
+          period?: string | null
+          rank?: number | null
+          score?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      points_transactions: {
+        Row: {
+          action_type: string
+          created_at: string | null
+          description: string | null
+          event_id: string | null
+          id: string
+          points: number
+          user_id: string | null
+        }
+        Insert: {
+          action_type: string
+          created_at?: string | null
+          description?: string | null
+          event_id?: string | null
+          id?: string
+          points: number
+          user_id?: string | null
+        }
+        Update: {
+          action_type?: string
+          created_at?: string | null
+          description?: string | null
+          event_id?: string | null
+          id?: string
+          points?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "points_transactions_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       scheduling_suggestions: {
         Row: {
           confidence_score: number | null
@@ -252,6 +412,118 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_badges: {
+        Row: {
+          badge_id: string | null
+          earned_at: string | null
+          id: string
+          progress: number | null
+          user_id: string | null
+        }
+        Insert: {
+          badge_id?: string | null
+          earned_at?: string | null
+          id?: string
+          progress?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          badge_id?: string | null
+          earned_at?: string | null
+          id?: string
+          progress?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_badges_badge_id_fkey"
+            columns: ["badge_id"]
+            isOneToOne: false
+            referencedRelation: "badges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_challenges: {
+        Row: {
+          challenge_id: string | null
+          completed_at: string | null
+          id: string
+          is_completed: boolean | null
+          progress: number | null
+          user_id: string | null
+        }
+        Insert: {
+          challenge_id?: string | null
+          completed_at?: string | null
+          id?: string
+          is_completed?: boolean | null
+          progress?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          challenge_id?: string | null
+          completed_at?: string | null
+          id?: string
+          is_completed?: boolean | null
+          progress?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_challenges_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          display_name: string | null
+          experience_points: number | null
+          id: string
+          last_activity_date: string | null
+          level: number | null
+          streak_count: number | null
+          total_points: number | null
+          updated_at: string | null
+          user_id: string | null
+          username: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          experience_points?: number | null
+          id?: string
+          last_activity_date?: string | null
+          level?: number | null
+          streak_count?: number | null
+          total_points?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+          username?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          experience_points?: number | null
+          id?: string
+          last_activity_date?: string | null
+          level?: number | null
+          streak_count?: number | null
+          total_points?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+          username?: string | null
+        }
+        Relationships: []
       }
       waitlist: {
         Row: {

@@ -52,6 +52,9 @@ verify_jwt = false
 [functions.manage-waitlist]
 verify_jwt = false
 
+[functions.gamification-system]
+verify_jwt = false
+
 [edge-runtime]
 policy = "per_worker"
 inspector_port = 8083

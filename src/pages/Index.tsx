@@ -12,6 +12,7 @@ import Analytics from '@/components/Analytics';
 import AIChatbot from '@/components/AIChatbot';
 import SmartScheduling from '@/components/SmartScheduling';
 import EnhancedRSVP from '@/components/EnhancedRSVP';
+import GamificationDashboard from '@/components/GamificationDashboard';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -49,7 +50,7 @@ const Index = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-          <TabsList className="grid w-full h-14 grid-cols-4 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 shadow-2xl rounded-2xl p-1 gap-1">
+          <TabsList className="grid w-full h-14 grid-cols-5 bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 shadow-2xl rounded-2xl p-1 gap-1">
             <TabsTrigger 
               value="dashboard" 
               className="flex items-center justify-center gap-2 py-3 px-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-green-900 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-500/30 transition-all duration-300 hover:bg-slate-800/40 rounded-xl text-slate-300 hover:text-slate-200 font-medium"
@@ -78,6 +79,13 @@ const Index = () => {
               <Calendar className="w-4 h-4" />
               Calendar
             </TabsTrigger>
+            <TabsTrigger 
+              value="gamification" 
+              className="flex items-center justify-center gap-2 py-3 px-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-600/20 data-[state=active]:text-green-900 data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-cyan-500/30 transition-all duration-300 hover:bg-slate-800/40 rounded-xl text-slate-300 hover:text-slate-200 font-medium"
+            >
+              <TrendingUp className="w-4 h-4" />
+              Gamification
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="dashboard" className="space-y-6 animate-fade-in">
@@ -94,6 +102,10 @@ const Index = () => {
 
           <TabsContent value="calendar" className="space-y-6 animate-fade-in">
             <SmartScheduling />
+          </TabsContent>
+
+          <TabsContent value="gamification" className="space-y-6 animate-fade-in">
+            <GamificationDashboard />
           </TabsContent>
         </Tabs>
       </div>
